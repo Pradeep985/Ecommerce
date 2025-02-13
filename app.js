@@ -1,26 +1,24 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
 
-const adminRoutes = require('./routes/admin');
-const shopRoutes = require('./routes/shop');
-const contactRoutes = require('./routes/contactus');
-const successRoutes = require('./routes/success');
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
+const contactRoutes = require("./routes/contact");
 
 const app = express();
 
-app.set('view engine', 'ejs'); // Change if you're using Pug or Handlebars
-app.set('views', 'views');
+app.set("view engine", "ejs");
+app.set("views", "views");
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(require('path').join(__dirname, 'public')));
+app.use(express.static("public"));
 
-app.use('/admin', adminRoutes);
-app.use(shopRoutes);
+app.use("/admin", adminRoutes);
 app.use(contactRoutes);
-app.use(successRoutes);
+app.use(shopRoutes);
 
 app.use((req, res, next) => {
-  res.status(404).render('404', { pageTitle: 'Page Not Found' });
+    res.status(404).render("404", { pageTitle: "Page Not Found", path: null });
 });
 
-app.listen(3000);
+app.listen(3000, () => console.log("Server running on port 3000"));
